@@ -74,6 +74,11 @@ for split in ['71', '370']:
     print name
     __sets[name] = (lambda split=split:
             datasets.nthu(split))
+#RGB-D dataset
+for db in ['scenes']:
+    for split in ['train','val','trainval']:
+        name='rgb_d_{}_{}'.format(db,split)
+        __sets[name]=(lambda split=split,db=db:datasets.rgbd(split,db))
 
 
 def get_imdb(name):

@@ -11,6 +11,7 @@ from .pascal3d import pascal3d
 from .imagenet3d import imagenet3d
 from .kitti import kitti
 from .kitti_tracking import kitti_tracking
+from .rgbd import rgbd
 from .nissan import nissan
 from .nthu import nthu
 from . import factory
