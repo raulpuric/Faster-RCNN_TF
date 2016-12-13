@@ -78,6 +78,7 @@ if __name__ == '__main__':
     if not args.randomize:
         # fix the random seeds (numpy and caffe) for reproducibility
         np.random.seed(cfg.RNG_SEED)
+    print(args.imdb_name)
     imdb = get_imdb(args.imdb_name)
     print 'Loaded dataset `{:s}` for training'.format(imdb.name)
     roidb = get_training_roidb(imdb)

@@ -25,7 +25,7 @@ EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 case $DATASET in
   rgbd)
     TRAIN_IMDB="rgb_d_scenes_trainval"
-    ITERS=3000
+    ITERS=20000
     ;;
   coco)
     # This is a very long and slow training schedule

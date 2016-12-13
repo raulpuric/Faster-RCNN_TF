@@ -111,9 +111,18 @@ class rgbd(imdb):
                 roidb = cPickle.load(fid)
             print '{} gt roidb loaded from {}'.format(self.name, cache_file)
             return roidb
-
-        gt_roidb = [self._load_pascal_annotation(index)
-                    for index in self.image_index]
+        gt_roidb = []
+        i=0
+        while i <len(self.image_index):
+            index=self.image_index[i]
+            res=self._load_pascal_annotation(index)
+            if res=='failure':
+                self._image_index.pop(i)
+            if res!='failure':
+                gt_roidb.append(res)
+                i+=1
+        #gt_roidb = [self._load_pascal_annotation(index)
+         #           for index in self.image_index]
         with open(cache_file, 'wb') as fid:
             cPickle.dump(gt_roidb, fid, cPickle.HIGHEST_PROTOCOL)
         print 'wrote gt roidb to {}'.format(cache_file)
@@ -192,7 +201,10 @@ class rgbd(imdb):
         format.
         """
         filename = os.path.join(self._data_path, index + '.xml')
-        tree = ET.parse(filename)
+        try:
+            tree = ET.parse(filename)
+        except Exception:
+            return 'failure'
         objs = tree.findall('object')
 #        if not self.config['use_diff']:
             # Exclude the samples labeled as difficult
